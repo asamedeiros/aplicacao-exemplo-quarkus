@@ -16,7 +16,7 @@ import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
 @Testcontainers
-public class FruitsRestIT {
+public class FruitsResourceIT {
 
     @Container
     private static PostgreSQLContainer postgresqlContainer = new PostgreSQLContainer<>()

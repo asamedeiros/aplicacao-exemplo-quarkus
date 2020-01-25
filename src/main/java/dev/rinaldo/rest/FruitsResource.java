@@ -11,6 +11,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.eclipse.microprofile.faulttolerance.Retry;
+
 import dev.rinaldo.dao.FruitsDAO;
 import dev.rinaldo.domain.Fruit;
 
@@ -18,23 +20,24 @@ import dev.rinaldo.domain.Fruit;
 @ApplicationScoped
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class FruitsRest {
+public class FruitsResource {
 
-	private final FruitsDAO fruitDAO;
+    private final FruitsDAO fruitDAO;
 
-	@Inject
-    public FruitsRest(FruitsDAO fruitDAO) {
-		this.fruitDAO = fruitDAO;
-	}
+    @Inject
+    public FruitsResource(FruitsDAO fruitDAO) {
+        this.fruitDAO = fruitDAO;
+    }
 
-	@GET
+    @GET
+    @Retry(maxRetries = 3)
     public List<Fruit> list() {
         return fruitDAO.listAll();
     }
-	
-	@GET
+
+    @GET
     public List<Fruit> getByName(@QueryParam("name") String name) {
         return fruitDAO.findByName(name);
     }
-	
+
 }

@@ -2,11 +2,17 @@ package dev.rinaldo.domain;
 
 import javax.persistence.Entity;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
-
 @Entity
-public class Fruit extends PanacheEntity {
-    
-	public String name;
+public class Fruit extends AbstractEntity {
 
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
 }

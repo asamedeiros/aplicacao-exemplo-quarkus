@@ -10,8 +10,8 @@ import io.quarkus.hibernate.orm.panache.PanacheRepository;
 @ApplicationScoped
 public class FruitsDAO implements PanacheRepository<Fruit> {
 
-    public List<Fruit> findByName(String name){
+    public List<Fruit> findByName(String name) {
         return list("name", name);
     }
-    
+
 }

@@ -1,8 +1,56 @@
-# RinaldoDev's Quarkus Example Application
+# ATENÇÃO
 
-This is a work in progress. Not ready for use.
+Este projeto NÃO está pronto para uso em produção. Utilize para aprender algumas boas práticas. 
 
-All of the readme bellow is from Quarkus project itself and hasn't been updated yet.
+NÃO utilize para produção sem antes verificar todas as configurações e entender tudo que foi feito.
+
+# RinaldoDev - Aplicação de Exemplo Quarkus
+
+Este projeto é uma base para iniciar novos projetos utilizando Quarkus.
+
+Várias escolhas são baseadas na minha opinião, como:
+
+- Utilizar Panache com repositórios e não herdar as entidades de PanacheEntity. 
+- Focar na facilidade de executar testes unitários de verdade, separados dos testes de integração.
+- Etc.
+
+Então não entenda como "a melhor forma" de criar um projeto Quarkus, mas sim aquilo que considero um bom começo.
+
+# Especificações MicroProfile, Extensões e Bibliotecas
+
+A seguir é uma lista do que está sendo exemplificado neste projeto até o momento.
+
+Especificação MicroProfile:
+- JAX-RS
+- JSON-B
+- CDI
+- MicroProfile Fault Tolerance
+- MicroProfile Health Check
+
+Extensões Quarkus (fora do MicroProfile):
+- Hibernate Panache
+- JDBC PostgreSQL
+
+Bibliotecas externas:
+- Log com SLF4J
+
+Testes Unitários:
+- JUnit5/Jupiter
+- Mockito
+
+Testes integrados:
+- Quarkus 
+- Rest Assured
+- TestContainers
+
+
+
+------------------------------------
+
+
+
+
+Todo o restante do Readme abaixo é do projeto base do próprio Quarkus. Deixo aqui porque vou editar futuramente para colocar as configurações deste projeto.
 
 # code-with-quarkus project
 

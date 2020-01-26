@@ -1,9 +1,9 @@
 package dev.rinaldo.test.integrated;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertTrue;
 
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,14 +16,15 @@ import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
 @Testcontainers
-public class FruitsResourceIT {
+public class FrutasResourceIT {
 
+    @SuppressWarnings("rawtypes")
     @Container
     private static PostgreSQLContainer postgresqlContainer = new PostgreSQLContainer<>()
-            .withDatabaseName("fruits")
-            .withUsername("foo")
-            .withPassword("secret")
-            .withExposedPorts(5432);
+            .withDatabaseName("frutas")
+            .withUsername("quarkus_it")
+            .withPassword("quarkus_it")
+            .withExposedPorts(5431);
 
     @BeforeAll
     private static void configure() {
@@ -41,11 +42,12 @@ public class FruitsResourceIT {
     }
 
     @Test
-    public void whenGetFruitsMustReturnFruits() {
+    public void dado_FrutasNaBase_quando_BuscarFrutas_entao_DeveRetornar200() {
         given()
-                .when().get("/fruits")
+                .when().get("/frutas")
                 .then()
-                .statusCode(200);
+                .statusCode(200)
+                .body("id", Matchers.containsString("1"));
     }
 
 }

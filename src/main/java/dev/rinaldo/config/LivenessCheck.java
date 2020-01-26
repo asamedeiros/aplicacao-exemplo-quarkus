@@ -12,6 +12,6 @@ public class LivenessCheck implements HealthCheck {
 
     @Override
     public HealthCheckResponse call() {
-        return HealthCheckResponse.up("Application is live.");
+        return HealthCheckResponse.up("Aplicação está rodando.");
     }
 }

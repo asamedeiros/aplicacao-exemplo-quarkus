@@ -7,25 +7,25 @@ import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 import org.eclipse.microprofile.health.Readiness;
 
-import dev.rinaldo.dao.FruitsDAO;
+import dev.rinaldo.dao.FrutasDAO;
 
 @Readiness
 @ApplicationScoped
 public class ReadinessCheck implements HealthCheck {
 
     @Inject
-    FruitsDAO fruitsDAO;
+    FrutasDAO fruitsDAO;
 
     @Override
     public HealthCheckResponse call() {
         try {
             fruitsDAO.findById(1L);
-            return HealthCheckResponse.up("Application is ready.");
+            return HealthCheckResponse.up("Aplicação está pronta.");
         } catch (Exception e) {
             return HealthCheckResponse
-                    .named("Application is not ready")
+                    .named("Aplicação não está pronta.")
                     .down()
-                    .withData("error", e.getMessage())
+                    .withData("erro", e.getMessage())
                     .build();
         }
     }

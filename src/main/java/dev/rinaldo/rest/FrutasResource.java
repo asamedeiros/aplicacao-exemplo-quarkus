@@ -1,7 +1,6 @@
 package dev.rinaldo.rest;
 
 import java.util.List;
-import java.util.Random;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -17,6 +16,7 @@ import org.eclipse.microprofile.faulttolerance.Retry;
 import org.eclipse.microprofile.faulttolerance.Timeout;
 import org.slf4j.Logger;
 
+import dev.rinaldo.config.FrutasConfig;
 import dev.rinaldo.dao.FrutasDAO;
 import dev.rinaldo.domain.Fruta;
 
@@ -26,19 +26,27 @@ import dev.rinaldo.domain.Fruta;
 @Consumes(MediaType.APPLICATION_JSON)
 public class FrutasResource {
 
+    private boolean simularEspera = false;
+    private boolean simularExcecao = false;
+
     private final Logger logger;
     private final FrutasDAO frutasDAO;
+    private final FrutasConfig frutasConfig;
 
     @Inject
-    public FrutasResource(FrutasDAO frutasDAO, Logger logger) {
+    public FrutasResource(
+            FrutasDAO frutasDAO,
+            Logger logger,
+            FrutasConfig frutasConfig) {
         this.logger = logger;
         this.frutasDAO = frutasDAO;
+        this.frutasConfig = frutasConfig;
     }
 
     @GET
-    @Timeout(value = 1000)
-    @Retry(maxRetries = 1)
-    @CircuitBreaker
+    @Timeout(value = 1000) // se não responder em 1 segundo, lança erro
+    @Retry(maxRetries = 1) // depois de 2 tentativas (1 retry) com erro, retorna erro
+    @CircuitBreaker // depois de vários erros seguidos, retorna erro imediatamente por algum tempo
     public List<Fruta> get() {
         talvezEspere1Seg();
         return frutasDAO.listAll();
@@ -46,9 +54,9 @@ public class FrutasResource {
 
     @GET
     @Path("maisVotadas")
-    @Retry(maxRetries = 1) // depois de 2 tentativas (1 retry) chama o fallback
-    @Fallback(fallbackMethod = "fallbackFrutasMaisVotadas")
-    @CircuitBreaker
+    @Retry(maxRetries = 1) // depois de 2 tentativas (1 retry) com erro, chama o fallback
+    @Fallback(fallbackMethod = "fallbackFrutasMaisVotadas") // será chamado em caso de erro
+    @CircuitBreaker // depois de vários erros seguidos, fica usando só o fallback por algum tempo
     public List<Fruta> getMaisVotadas() {
         logger.trace("GET frutas mais votadas.");
         talvezLanceExcecao();
@@ -63,24 +71,34 @@ public class FrutasResource {
     }
 
     private void talvezLanceExcecao() {
-        // 50% de chance de lançar exceção!
-        double draw = new Random().nextDouble();
-        if (draw > 0.5) {
-            logger.error("Erro foi sorteado! {}", draw);
+        if (!frutasConfig.simularExcecao.orElse(Boolean.FALSE)) {
+            return;
+        }
+
+        if (simularExcecao) {
+            simularExcecao = false;
+            logger.error("Simulando Excecao!");
             throw new RuntimeException("Erro!");
+        } else {
+            simularExcecao = true;
         }
     }
 
     private void talvezEspere1Seg() {
-        // 50% de chance de ficar parado por 1 segundo!
-        double draw = new Random().nextDouble();
-        if (draw > 0.5) {
-            logger.error("Sleep foi sorteado! {}", draw);
+        if (!frutasConfig.simularEspera.orElse(Boolean.FALSE)) {
+            return;
+        }
+
+        if (simularEspera) {
+            simularEspera = false;
+            logger.error("Simulando espera de 1 segundo!");
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+        } else {
+            simularEspera = true;
         }
     }
 

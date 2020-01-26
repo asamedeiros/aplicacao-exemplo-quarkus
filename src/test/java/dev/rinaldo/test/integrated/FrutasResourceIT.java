@@ -3,6 +3,9 @@ package dev.rinaldo.test.integrated;
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertTrue;
 
+import javax.inject.Inject;
+import javax.transaction.Transactional;
+
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -12,12 +15,17 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import dev.rinaldo.dao.FrutasDAO;
+import dev.rinaldo.domain.Fruta;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
 @Testcontainers
 public class FrutasResourceIT {
 
+    @Inject
+    private FrutasDAO frutasDAO;
+    
     @SuppressWarnings("rawtypes")
     @Container
     private static PostgreSQLContainer postgresqlContainer = new PostgreSQLContainer<>()
@@ -42,7 +50,13 @@ public class FrutasResourceIT {
     }
 
     @Test
+    @Transactional
     public void dado_FrutasNaBase_quando_BuscarFrutas_entao_DeveRetornar200() {
+        Fruta fruta = new Fruta();
+        fruta.setNome("Laranja");
+        fruta.setVotos(2);
+        frutasDAO.persistAndFlush(fruta);
+        
         given()
                 .when().get("/frutas")
                 .then()

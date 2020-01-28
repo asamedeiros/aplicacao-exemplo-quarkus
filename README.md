@@ -61,8 +61,6 @@ A maior parte do que está sendo usado contém documentação própria, então n
 
 ## Dúvidas nos Testes Integrados
 
-É necessário ter o Docker instalado para rodar os testes integrados, pois eles usam TestContainers, que precisam baixar e executar imagens do Docker!
-
 - Quarkus: https://quarkus.io/guides/getting-started-testing
 - Rest Assured: https://github.com/rest-assured/rest-assured/wiki/usage
 - TestContainers: https://www.testcontainers.org/quickstart/junit_5_quickstart/
@@ -81,6 +79,8 @@ Para executar os testes unitários:
 ```
 
 ## Testes integrados
+
+É necessário ter o Docker instalado para rodar os testes integrados, pois eles usam TestContainers, que precisam baixar e executar imagens do Docker!
 
 Para executar os testes unitários e integrados:
 ```

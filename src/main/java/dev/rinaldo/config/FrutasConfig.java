@@ -1,7 +1,5 @@
 package dev.rinaldo.config;
 
-import java.util.Optional;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
@@ -10,16 +8,23 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 @ApplicationScoped
 public class FrutasConfig {
 
-    public final Optional<Boolean> simularEspera;
-    public final Optional<Boolean> simularExcecao;
+    private boolean simularEspera;
+    private boolean simularExcecao;
 
-    // usando construtor garantimos que os fields são FINAL
     @Inject
     public FrutasConfig(
-            @ConfigProperty(name = "frutas.simular-espera") Optional<Boolean> simularEspera,
-            @ConfigProperty(name = "frutas.simular-excecao") Optional<Boolean> simularTimeout) {
+            @ConfigProperty(name = "frutas.simular-espera", defaultValue = "false") boolean simularEspera,
+            @ConfigProperty(name = "frutas.simular-excecao", defaultValue = "false") boolean simularExcecao) {
         this.simularEspera = simularEspera;
-        this.simularExcecao = simularTimeout;
+        this.simularExcecao = simularExcecao;
+    }
+
+    public boolean isSimularEspera() {
+        return simularEspera;
+    }
+
+    public boolean isSimularExcecao() {
+        return simularExcecao;
     }
 
 }

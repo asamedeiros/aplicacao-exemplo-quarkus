@@ -1,12 +1,14 @@
 package dev.rinaldo.test.integrated;
 
 import static io.restassured.RestAssured.given;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.lessThan;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-import javax.inject.Inject;
 import javax.transaction.Transactional;
 
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,17 +17,14 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import dev.rinaldo.dao.FrutasDAO;
-import dev.rinaldo.domain.Fruta;
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 
 @QuarkusTest
 @Testcontainers
 public class FrutasResourceIT {
 
-    @Inject
-    private FrutasDAO frutasDAO;
-    
     @SuppressWarnings("rawtypes")
     @Container
     private static PostgreSQLContainer postgresqlContainer = new PostgreSQLContainer<>()
@@ -36,6 +35,7 @@ public class FrutasResourceIT {
 
     @BeforeAll
     private static void configure() {
+        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
         System.setProperty("quarkus.datasource.url", postgresqlContainer.getJdbcUrl());
     }
 
@@ -46,22 +46,21 @@ public class FrutasResourceIT {
 
     @BeforeEach
     void setup() {
-        assertTrue("Banco não está no ar.", postgresqlContainer.isRunning());
+        assumeTrue(postgresqlContainer.isRunning(), "Banco não está no ar.");
     }
 
     @Test
     @Transactional
-    public void dado_FrutasNaBase_quando_BuscarFrutas_entao_DeveRetornar200() {
-        Fruta fruta = new Fruta();
-        fruta.setNome("Laranja");
-        fruta.setVotos(2);
-        frutasDAO.persistAndFlush(fruta);
-        
+    public void dado_FrutasNaBase_quando_BuscarFrutas_entao_DeveRetornar200ComId1() {
         given()
                 .when().get("/frutas")
                 .then()
                 .statusCode(200)
-                .body("id", Matchers.containsString("1"));
+                .contentType(ContentType.JSON)
+                .time(lessThan(1000L))
+                .body("id", hasItems(1, 2, 3, 4, 5, 6, 7))
+                .body("nome", hasSize(greaterThanOrEqualTo(7)))
+                .body("votos", hasSize(greaterThanOrEqualTo(7)));
     }
 
 }

@@ -44,9 +44,9 @@ public class FrutasResource {
     }
 
     @GET
-    @Timeout(value = 1000) // se não responder em 1 segundo, lança erro
-    @Retry(maxRetries = 1) // depois de 2 tentativas (1 retry) com erro, retorna erro
-    @CircuitBreaker // depois de vários erros seguidos, retorna erro imediatamente por algum tempo
+//    @Timeout(value = 1000) // se não responder em 1 segundo, lança erro
+//    @Retry(maxRetries = 1) // depois de 2 tentativas (1 retry) com erro, retorna erro
+//    @CircuitBreaker // depois de vários erros seguidos, retorna erro imediatamente por algum tempo
     public List<Fruta> get() {
         talvezEspere1Seg();
         return frutasDAO.listAll();
@@ -71,7 +71,7 @@ public class FrutasResource {
     }
 
     private void talvezLanceExcecao() {
-        if (!frutasConfig.simularExcecao.orElse(Boolean.FALSE)) {
+        if (!frutasConfig.isSimularExcecao()) {
             return;
         }
 
@@ -85,7 +85,7 @@ public class FrutasResource {
     }
 
     private void talvezEspere1Seg() {
-        if (!frutasConfig.simularEspera.orElse(Boolean.FALSE)) {
+        if (!frutasConfig.isSimularEspera()) {
             return;
         }
 

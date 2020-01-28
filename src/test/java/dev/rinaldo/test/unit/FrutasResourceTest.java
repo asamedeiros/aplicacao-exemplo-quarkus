@@ -14,7 +14,6 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -34,11 +33,9 @@ import dev.rinaldo.rest.FrutasResource;
 @ExtendWith(MockitoExtension.class)
 public class FrutasResourceTest {
 
-    private static final Optional<Boolean> TRUE_OPTIONAL = Optional.of(Boolean.TRUE);
-
-    private final FrutasConfig frutasConfigVazio = new FrutasConfig(Optional.empty(), Optional.empty());
-    private final FrutasConfig frutasConfigComEspera = new FrutasConfig(TRUE_OPTIONAL, Optional.empty());
-    private final FrutasConfig frutasConfigComExcecao = new FrutasConfig(Optional.empty(), TRUE_OPTIONAL);
+    private final FrutasConfig frutasConfigVazio = new FrutasConfig(false, false);
+    private final FrutasConfig frutasConfigComEspera = new FrutasConfig(true, false);
+    private final FrutasConfig frutasConfigComExcecao = new FrutasConfig(false, true);
 
     private final Logger logger = LogProducer.produceLog(getClass());
 
@@ -103,8 +100,8 @@ public class FrutasResourceTest {
         // then
         long duracaoAtual = Duration.between(inicio, fim).toMillis();
         long duracaoMaxima = 1000;
-        assertTrue(duracaoAtual > duracaoMaxima,
-                "Segunda execução demorou menos de 1 segundo, quer dizer que não esperou 1 segundo.");
+        assertTrue(duracaoAtual >= duracaoMaxima,
+                "Segunda execução demorou menos de 1 segundo, quer dizer que não esperou 1 segundo: " + duracaoAtual);
     }
 
     @Test

@@ -55,9 +55,10 @@ Aceito sugestões de novas extensões/bibliotecas para exemplificar. :)
 
 Esse projeto é fortemente contruído ao redor do Quarkus! Veja mais em: https://quarkus.io/.
 
-ATENÇÃO! É necessário ter o Docker instalado para rodar os testes integrados ou executar a aplicação, pois vários exemplos utilizam imagens do dockerr.
+## Dependências
 
-Instalação do Docker: https://docs.docker.com/install/
+- Docker: É necessário ter o Docker instalado para rodar os testes integrados ou executar a aplicação, pois vários exemplos utilizam imagens do docker. Instalação do Docker: https://docs.docker.com/install/
+- JDK 11: É necessário ter uma JDK 11 disponível localmente e configurada no JAVA_HOME.
 
 ## Testes unitários
 

@@ -1,7 +1,3 @@
-# ATENÇÃO
-
-Este projeto NÃO está pronto para uso em produção. Utilize para aprender algumas boas práticas. 
-
 # RinaldoDev - Aplicação de Exemplo Quarkus
 
 Este projeto é uma base para iniciar novos projetos utilizando Quarkus.
@@ -47,6 +43,8 @@ Testes integrados:
 - Rest Assured
 - TestContainers
 
+Aceito sugestões de novas extensões/bibliotecas para exemplificar. :)
+
 # Dúvidas de utilização
 
 A maior parte do que está sendo usado contém documentação própria, então não convém explicar a utilização nesse projeto, apenas exemplificar.
@@ -66,12 +64,6 @@ A maior parte do que está sendo usado contém documentação própria, então n
 - Quarkus: https://quarkus.io/guides/getting-started-testing
 - Rest Assured: https://github.com/rest-assured/rest-assured/wiki/usage
 - TestContainers: https://www.testcontainers.org/quickstart/junit_5_quickstart/
-
-
-------------------------------------
-
-
-Todo o restante do Readme abaixo é do projeto base do próprio Quarkus. Deixo aqui porque vou editar futuramente para colocar as configurações deste projeto.
 
 # Executando
 

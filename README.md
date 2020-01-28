@@ -89,7 +89,12 @@ Para executar os testes unitários e integrados:
 
 ## Rodando a aplicação no modo dev
 
-Execute a aplicação no modo dev, que permite live coding (salvou, tá visível), com o comando abaixo:
+Primeiro inicie um banco PostgreSQL em um container Docker com o comando:
+```
+docker run -e POSTGRES_PASSWORD=quarkus_dev -e POSTGRES_USER=quarkus_dev -e POSTGRES_DB=frutas -p 127.0.0.1:5432:5432/tcp postgres:9.6.12
+```
+
+Depois execute a aplicação no modo dev, que permite live coding (salvou, tá visível), com o comando abaixo:
 ```
 ./mvnw quarkus:dev
 ```

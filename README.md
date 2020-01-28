@@ -8,13 +8,18 @@ NÃO utilize para produção sem antes verificar todas as configurações e ente
 
 Este projeto é uma base para iniciar novos projetos utilizando Quarkus.
 
-Várias escolhas são baseadas na minha opinião, como:
+Algumas escolhas são baseadas na minha opinião sobre alguns conceitos, como:
 
-- Utilizar Panache com repositórios e não herdar as entidades de PanacheEntity. 
+- Utilizar Panache com repositórios e não herdar as entidades de PanacheEntity.
 - Focar na facilidade de executar testes unitários de verdade, separados dos testes de integração.
-- Etc.
+- Focar em um design que facilite a execução de testes unitários com Mocks.
+- Entre outros que depois adiciono aqui.
 
-Então não entenda como "a melhor forma" de criar um projeto Quarkus, mas sim aquilo que considero um bom começo.
+Então não entenda como "a melhor forma" de criar um projeto Quarkus, mas sim como um exemplo de utilização de:
+
+- Extensões do Quarkus.
+- Especificações do MicroProfile.
+- Bibliotecas que acho que "encaixam bem" com o Quarkus.
 
 # Especificações MicroProfile, Extensões e Bibliotecas
 
@@ -43,42 +48,69 @@ Testes integrados:
 - Rest Assured
 - TestContainers
 
+# Dúvidas de utilização
+
+A maior parte do que está sendo usado contém documentação própria, então não convém explicar a utilização nesse projeto, apenas exemplificar.
+
+## Dúvidas de Quarkus ou MicroProfile
+
+Quarkus: https://quarkus.io/
+MicroProfile: https://microprofile.io/
+
+## Dúvidas nos Testes Unitários
+
+JUnit5/Jupiter: https://junit.org/junit5/docs/current/user-guide/
+Mockito: https://javadoc.io/static/org.mockito/mockito-core/3.2.4/org/mockito/Mockito.html
+
+## Dúvidas nos Testes Integrados
+
+Quarkus: https://quarkus.io/guides/getting-started-testing
+Rest Assured: https://github.com/rest-assured/rest-assured/wiki/usage
+TestContainers: https://www.testcontainers.org/quickstart/junit_5_quickstart/
 
 
 ------------------------------------
 
 
-
-
 Todo o restante do Readme abaixo é do projeto base do próprio Quarkus. Deixo aqui porque vou editar futuramente para colocar as configurações deste projeto.
 
-# code-with-quarkus project
+# Executando
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+Esse projeto é fortemente contruído ao redor do Quarkus!
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+Veja mais em: https://quarkus.io/ .
 
-## Running the application in dev mode
+## Testes unitários
 
-You can run your application in dev mode that enables live coding using:
+Para executar os testes unitários:
+```
+./mvnw test
+```
+
+## Testes integrados
+
+Para executar os testes unitários e integrados:
+```
+./mvnw verify
+```
+
+## Rodando a aplicação no modo dev
+
+Execute a aplicação no modo dev, que permite live coding (salvou, tá visível), com o comando abaixo:
 ```
 ./mvnw quarkus:dev
 ```
 
-## Packaging and running the application
+## Empacotando
 
-The application is packageable using `./mvnw package`.
-It produces the executable `code-with-quarkus-1.0.0-SNAPSHOT-runner.jar` file in `/target` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/lib` directory.
+Para empacotar a aplicação utilize o comando `./mvnw package`.
+Esse comando irá criar o jar `quarkus-example-app-X.X.X-runner.jar` no diretório `/target`.
 
-The application is now runnable using `java -jar target/code-with-quarkus-1.0.0-SNAPSHOT-runner.jar`.
+Para executar a aplicação empacotada utilize o comando `java -jar target/quarkus-example-app-X.X.X-runner.jar`.
 
-## Creating a native executable
+Perceba que a aplicação não precisa de implantada em um servidor.
 
-You can create a native executable using: `./mvnw package -Pnative`.
+## Executável nativo
 
-Or you can use Docker to build the native executable using: `./mvnw package -Pnative -Dquarkus.native.container-build=true`.
-
-You can then execute your binary: `./target/code-with-quarkus-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/building-native-image-guide .
+Com o Quarkus é possível criar imagens nativas, super leves e com tempo de inicialização super rápido. 
+A princípio, esse não é o objetivo desse projeto de exemplo. Caso queira saber mais, veja aqui: https://quarkus.io/guides/building-native-image-guide.

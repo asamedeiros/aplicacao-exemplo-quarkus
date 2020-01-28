@@ -46,26 +46,6 @@ Testes integrados:
 
 Aceito sugestões de novas extensões/bibliotecas para exemplificar. :)
 
-# Dúvidas de utilização
-
-A maior parte do que está sendo usado contém documentação própria, então não convém explicar a utilização nesse projeto, apenas exemplificar.
-
-## Dúvidas de Quarkus ou MicroProfile
-
-- Quarkus: https://quarkus.io/
-- MicroProfile: https://microprofile.io/
-
-## Dúvidas nos Testes Unitários
-
-- JUnit5/Jupiter: https://junit.org/junit5/docs/current/user-guide/
-- Mockito: https://javadoc.io/static/org.mockito/mockito-core/3.2.4/org/mockito/Mockito.html
-
-## Dúvidas nos Testes Integrados
-
-- Quarkus: https://quarkus.io/guides/getting-started-testing
-- Rest Assured: https://github.com/rest-assured/rest-assured/wiki/usage
-- TestContainers: https://www.testcontainers.org/quickstart/junit_5_quickstart/
-
 # Configuração de IDE
 
 - Esse projeto usa Maven, então importe como projeto Maven na sua IDE.
@@ -118,3 +98,23 @@ Perceba que a aplicação não precisa de implantada em um servidor.
 
 Com o Quarkus é possível criar imagens nativas, super leves e com tempo de inicialização super rápido. 
 A princípio, esse não é o objetivo desse projeto de exemplo. Caso queira saber mais, veja aqui: https://quarkus.io/guides/building-native-image-guide.
+
+# Dúvidas de utilização
+
+A maior parte do que está sendo usado contém documentação própria, então não convém explicar a utilização nesse projeto, apenas exemplificar.
+
+## Dúvidas de Quarkus ou MicroProfile
+
+- Quarkus: https://quarkus.io/
+- MicroProfile: https://microprofile.io/
+
+## Dúvidas nos Testes Unitários
+
+- JUnit5/Jupiter: https://junit.org/junit5/docs/current/user-guide/
+- Mockito: https://javadoc.io/static/org.mockito/mockito-core/3.2.4/org/mockito/Mockito.html
+
+## Dúvidas nos Testes Integrados
+
+- Quarkus: https://quarkus.io/guides/getting-started-testing
+- Rest Assured: https://github.com/rest-assured/rest-assured/wiki/usage
+- TestContainers: https://www.testcontainers.org/quickstart/junit_5_quickstart/

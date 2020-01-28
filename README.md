@@ -67,9 +67,11 @@ A maior parte do que está sendo usado contém documentação própria, então n
 
 # Executando
 
-Esse projeto é fortemente contruído ao redor do Quarkus!
+Esse projeto é fortemente contruído ao redor do Quarkus! Veja mais em: https://quarkus.io/.
 
-Veja mais em: https://quarkus.io/ .
+ATENÇÃO! É necessário ter o Docker instalado para rodar os testes integrados ou executar a aplicação, pois vários exemplos utilizam imagens do dockerr.
+
+Instalação do Docker: https://docs.docker.com/install/
 
 ## Testes unitários
 
@@ -79,8 +81,6 @@ Para executar os testes unitários:
 ```
 
 ## Testes integrados
-
-É necessário ter o Docker instalado para rodar os testes integrados, pois eles usam TestContainers, que precisam baixar e executar imagens do Docker!
 
 Para executar os testes unitários e integrados:
 ```

@@ -2,8 +2,6 @@
 
 Este projeto NÃO está pronto para uso em produção. Utilize para aprender algumas boas práticas. 
 
-NÃO utilize para produção sem antes verificar todas as configurações e entender tudo que foi feito.
-
 # RinaldoDev - Aplicação de Exemplo Quarkus
 
 Este projeto é uma base para iniciar novos projetos utilizando Quarkus.

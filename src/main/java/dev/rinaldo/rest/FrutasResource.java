@@ -19,6 +19,8 @@ import org.slf4j.Logger;
 import dev.rinaldo.config.FrutasConfig;
 import dev.rinaldo.dao.FrutasDAO;
 import dev.rinaldo.domain.Fruta;
+import dev.rinaldo.dto.FrutaDTO;
+import dev.rinaldo.dto.mapper.FrutaMapper;
 
 @Path("/frutas")
 @ApplicationScoped
@@ -32,24 +34,28 @@ public class FrutasResource {
     private final Logger logger;
     private final FrutasDAO frutasDAO;
     private final FrutasConfig frutasConfig;
+    private final FrutaMapper frutaMapper;
 
     @Inject
     public FrutasResource(
             FrutasDAO frutasDAO,
             Logger logger,
-            FrutasConfig frutasConfig) {
+            FrutasConfig frutasConfig,
+            FrutaMapper frutaMapper) {
         this.logger = logger;
         this.frutasDAO = frutasDAO;
         this.frutasConfig = frutasConfig;
+        this.frutaMapper = frutaMapper;
     }
 
     @GET
-//    @Timeout(value = 1000) // se não responder em 1 segundo, lança erro
-//    @Retry(maxRetries = 1) // depois de 2 tentativas (1 retry) com erro, retorna erro
-//    @CircuitBreaker // depois de vários erros seguidos, retorna erro imediatamente por algum tempo
-    public List<Fruta> get() {
+    @Timeout(value = 1000) // se não responder em 1 segundo, lança erro
+    @Retry(maxRetries = 1) // depois de 2 tentativas (1 retry) com erro, retorna erro
+    @CircuitBreaker // depois de vários erros seguidos, retorna erro imediatamente por algum tempo
+    public List<FrutaDTO> get() {
         talvezEspere1Seg();
-        return frutasDAO.listAll();
+        List<Fruta> frutas = frutasDAO.listAll();
+        return frutaMapper.toResourceList(frutas);
     }
 
     @GET
@@ -57,17 +63,19 @@ public class FrutasResource {
     @Retry(maxRetries = 1) // depois de 2 tentativas (1 retry) com erro, chama o fallback
     @Fallback(fallbackMethod = "fallbackFrutasMaisVotadas") // será chamado em caso de erro
     @CircuitBreaker // depois de vários erros seguidos, fica usando só o fallback por algum tempo
-    public List<Fruta> getMaisVotadas() {
+    public List<FrutaDTO> getMaisVotadas() {
         logger.trace("GET frutas mais votadas.");
         talvezLanceExcecao();
-        return frutasDAO.findMaisVotadas();
+        List<Fruta> maisVotadas = frutasDAO.findMaisVotadas();
+        return frutaMapper.toResourceList(maisVotadas);
     }
 
-    public List<Fruta> fallbackFrutasMaisVotadas() {
+    public List<FrutaDTO> fallbackFrutasMaisVotadas() {
         // no fallback retornamos uma Ameixa porque, mesmo sem consultar a base, sabemos que é a melhor fruta :)
-        Fruta e1 = new Fruta();
-        e1.setNome("Ameixa");
-        return List.of(e1);
+        Fruta frutaMaisVotada = new Fruta();
+        frutaMaisVotada.setNome("Ameixa");
+        FrutaDTO dto = frutaMapper.toResource(frutaMaisVotada);
+        return List.of(dto);
     }
 
     private void talvezLanceExcecao() {

@@ -57,7 +57,6 @@ public class FrutasResourceIT {
                 .then()
                 .statusCode(200)
                 .contentType(ContentType.JSON)
-                .time(lessThan(1000L))
                 .body("id", hasItems(1, 2, 3, 4, 5, 6, 7))
                 .body("nome", hasSize(greaterThanOrEqualTo(7)))
                 .body("votos", hasSize(greaterThanOrEqualTo(7)));

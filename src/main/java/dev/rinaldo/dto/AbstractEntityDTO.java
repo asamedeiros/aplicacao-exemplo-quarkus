@@ -1,14 +1,7 @@
-package dev.rinaldo.domain;
+package dev.rinaldo.dto;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+public abstract class AbstractEntityDTO {
 
-@MappedSuperclass
-public abstract class AbstractEntity {
-
-    @Id
-    @GeneratedValue
     protected Long id;
 
     public Long getId() {

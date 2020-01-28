@@ -20,6 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.function.Executable;
+import org.mapstruct.factory.Mappers;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.Logger;
@@ -28,6 +29,8 @@ import dev.rinaldo.config.FrutasConfig;
 import dev.rinaldo.config.LogProducer;
 import dev.rinaldo.dao.FrutasDAO;
 import dev.rinaldo.domain.Fruta;
+import dev.rinaldo.dto.FrutaDTO;
+import dev.rinaldo.dto.mapper.FrutaMapper;
 import dev.rinaldo.rest.FrutasResource;
 
 @ExtendWith(MockitoExtension.class)
@@ -38,6 +41,8 @@ public class FrutasResourceTest {
     private final FrutasConfig frutasConfigComExcecao = new FrutasConfig(false, true);
 
     private final Logger logger = LogProducer.produceLog(getClass());
+
+    private final FrutaMapper frutaMapper = Mappers.getMapper(FrutaMapper.class);
 
     @Mock
     private FrutasDAO frutasDAO;
@@ -58,15 +63,16 @@ public class FrutasResourceTest {
         Fruta fruta3 = new Fruta();
         fruta3.setId(3L);
 
-        List<Fruta> expected = Arrays.asList(fruta1, fruta2, fruta3);
-        when(frutasDAO.listAll()).thenReturn(expected);
+        final List<Fruta> frutasList = Arrays.asList(fruta1, fruta2, fruta3);
+        when(frutasDAO.listAll()).thenReturn(frutasList);
 
-        FrutasResource frutasResource = new FrutasResource(frutasDAO, logger, frutasConfigVazio);
+        final FrutasResource frutasResource = newFrutasResource(frutasConfigVazio);
 
         // when
-        List<Fruta> actual = frutasResource.get();
+        final List<FrutaDTO> actual = frutasResource.get();
 
         // then
+        final List<FrutaDTO> expected = frutaMapper.toResourceList(frutasList);
         verify(frutasDAO, times(1)).listAll();
         assertEquals(expected.size(), actual.size(), "O tamanho da lista retornada é diferente do que foi colocado no mock.");
         assertEquals(Set.copyOf(expected), Set.copyOf(actual), "As listas contém itens diferentes, mas deveriam ser iguais."); // compara um SET para que a ordem seja ignorada
@@ -75,7 +81,7 @@ public class FrutasResourceTest {
     @Test
     public void listarTodasAsFrutas_SimularEspera_PrimeiraChamada() {
         // given
-        FrutasResource frutasResource = new FrutasResource(frutasDAO, logger, frutasConfigComEspera);
+        FrutasResource frutasResource = newFrutasResource(frutasConfigComEspera);
 
         // when
         Executable executable = () -> frutasResource.get();
@@ -89,7 +95,7 @@ public class FrutasResourceTest {
     @Test
     public void listarTodasAsFrutas_SimularEspera_SegundaChamada() {
         // given
-        FrutasResource frutasResource = new FrutasResource(frutasDAO, logger, frutasConfigComEspera);
+        FrutasResource frutasResource = newFrutasResource(frutasConfigComEspera);
 
         // when
         frutasResource.get();
@@ -107,7 +113,7 @@ public class FrutasResourceTest {
     @Test
     public void listarTodasAsFrutas_SimularEspera_TerceiraChamada() {
         // setup
-        FrutasResource frutasResource = new FrutasResource(frutasDAO, logger, frutasConfigComEspera);
+        FrutasResource frutasResource = newFrutasResource(frutasConfigComEspera);
 
         // when
         frutasResource.get();
@@ -130,15 +136,16 @@ public class FrutasResourceTest {
         Fruta fruta3 = new Fruta();
         fruta3.setId(3L);
 
-        List<Fruta> expected = Arrays.asList(fruta1, fruta2, fruta3);
-        when(frutasDAO.findMaisVotadas()).thenReturn(expected);
+        List<Fruta> frutas = Arrays.asList(fruta1, fruta2, fruta3);
+        when(frutasDAO.findMaisVotadas()).thenReturn(frutas);
 
-        FrutasResource frutasResource = new FrutasResource(frutasDAO, logger, frutasConfigVazio);
+        FrutasResource frutasResource = newFrutasResource(frutasConfigVazio);
 
         // when
-        List<Fruta> actual = frutasResource.getMaisVotadas();
+        List<FrutaDTO> actual = frutasResource.getMaisVotadas();
 
         // then
+        List<FrutaDTO> expected = frutaMapper.toResourceList(frutas);
         verify(frutasDAO, times(1)).findMaisVotadas();
         assertEquals(expected.size(), actual.size(), "O tamanho da lista retornada é diferente do que foi colocado no mock.");
         assertEquals(Set.copyOf(expected), Set.copyOf(actual), "As listas contém itens diferentes, mas deveriam ser iguais."); // compara um SET para que a ordem seja ignorada
@@ -147,10 +154,10 @@ public class FrutasResourceTest {
     @Test
     public void listarMaisVotadas_SimularExcecao_PrimeiraChamada() {
         // setup
-        FrutasResource frutasResource = new FrutasResource(frutasDAO, logger, frutasConfigComExcecao);
+        FrutasResource frutasResource = newFrutasResource(frutasConfigComExcecao);
 
         // when
-        List<Fruta> maisVotadas = frutasResource.getMaisVotadas();
+        List<FrutaDTO> maisVotadas = frutasResource.getMaisVotadas();
 
         // then
         assertNotNull(maisVotadas, "Não retornou nenhuma lista, mas deveria ter retornado algo.");
@@ -159,7 +166,7 @@ public class FrutasResourceTest {
     @Test
     public void listarMaisVotadas_SimularExcecao_SegundaChamada() {
         // setup
-        FrutasResource frutasResource = new FrutasResource(frutasDAO, logger, frutasConfigComExcecao);
+        FrutasResource frutasResource = newFrutasResource(frutasConfigComExcecao);
 
         // when
         frutasResource.getMaisVotadas();
@@ -173,7 +180,7 @@ public class FrutasResourceTest {
     @Test
     public void listarMaisVotadas_SimularExcecao_TerceiraChamada() {
         // setup
-        FrutasResource frutasResource = new FrutasResource(frutasDAO, logger, frutasConfigComExcecao);
+        FrutasResource frutasResource = new FrutasResource(frutasDAO, logger, frutasConfigComExcecao, frutaMapper);
 
         // when
         try {
@@ -181,7 +188,7 @@ public class FrutasResourceTest {
             frutasResource.getMaisVotadas();
         } catch (RuntimeException e) {
         }
-        List<Fruta> maisVotadas = frutasResource.getMaisVotadas();
+        List<FrutaDTO> maisVotadas = frutasResource.getMaisVotadas();
 
         // then
         assertNotNull(maisVotadas, "Não retornou nenhuma lista na terceira chamada, mas deveria ter retornado algo.");
@@ -190,13 +197,18 @@ public class FrutasResourceTest {
     @Test
     public void fallbackFrutasMaisVotadas() {
         // setup
-        FrutasResource frutasResource = new FrutasResource(frutasDAO, logger, frutasConfigComExcecao);
+        FrutasResource frutasResource = new FrutasResource(frutasDAO, logger, frutasConfigComExcecao, frutaMapper);
 
         // when
-        List<Fruta> maisVotadas = frutasResource.fallbackFrutasMaisVotadas();
+        List<FrutaDTO> maisVotadas = frutasResource.fallbackFrutasMaisVotadas();
 
         // then
         assertNotNull(maisVotadas, "Não retornou nenhuma lista no fallback, mas deveria ter retornado algo.");
+    }
+
+    private FrutasResource newFrutasResource(FrutasConfig frutasConfig) {
+        FrutasResource frutasResource = new FrutasResource(frutasDAO, logger, frutasConfig, frutaMapper);
+        return frutasResource;
     }
 
 }

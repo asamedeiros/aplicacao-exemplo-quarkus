@@ -33,6 +33,7 @@ Extensões Quarkus (fora do MicroProfile):
 
 Bibliotecas externas:
 - Log com SLF4J
+- MapStruct
 
 Testes Unitários:
 - JUnit5/Jupiter
@@ -64,6 +65,11 @@ A maior parte do que está sendo usado contém documentação própria, então n
 - Quarkus: https://quarkus.io/guides/getting-started-testing
 - Rest Assured: https://github.com/rest-assured/rest-assured/wiki/usage
 - TestContainers: https://www.testcontainers.org/quickstart/junit_5_quickstart/
+
+# Configuração de IDE
+
+- Esse projeto usa Maven, então importe como projeto Maven na sua IDE.
+- Por conta do uso do MapStruct, o projeto requer que Java Annotation Processing esteja habilitado na IDE. Veja aqui como habilitar nas principais IDEs: https://mapstruct.org/documentation/ide-support/
 
 # Executando
 

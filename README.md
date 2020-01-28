@@ -29,6 +29,7 @@ Especificação MicroProfile:
 - CDI
 - MicroProfile Fault Tolerance
 - MicroProfile Health Check
+- MicroProfile Config
 
 Extensões Quarkus (fora do MicroProfile):
 - Hibernate Panache

@@ -32,7 +32,33 @@ import dev.rinaldo.domain.Fruta;
 import dev.rinaldo.dto.FrutaDTO;
 import dev.rinaldo.dto.mapper.FrutaMapper;
 import dev.rinaldo.rest.FrutasResource;
+import io.quarkus.test.junit.QuarkusTest;
 
+/**
+ * Testes unitários de {@link FrutasResource}.
+ * 
+ * Especificações utilizadas:
+ * - Junit5/Jupiter através da maior parte das anotações.
+ * - Mockito com {@link MockitoExtension} e {@link Mock}.
+ * 
+ * Percebam que não há a anotação do {@link QuarkusTest} ou qualquer outra coisa que inicie um contexto. Isso é proposital, e
+ * garante que a única dependência dos testes é o Mockito. Isso faz com que os testes sejam executados de forma extremamente
+ * rápida, facilitando o uso de TDD e a implementação de vários testes de unidade sem demora, até mesmo para a própria build do
+ * projeto também ser rápida.
+ * 
+ * Basta criar uma instância de {@link FrutasResource} passando as dependências como parâmetro. Podem ser mocks ou não. Para
+ * coisas simples e que não afetam no nosso teste, não há necessidade de criar mocks. Para acesso à base de dados, por exemplo,
+ * que é o caso da DAO, recomendo o uso de mocks.
+ * 
+ * Perceba o padrão de given/when/then. Isso garante o entendimento do que está sendo testado.
+ * 
+ * - given é basicamente o setup do teste, realizando as pré-condições para executar o teste, criar mocks, etc.
+ * - when é a sua funcionalidade em si, o que você quer testar.
+ * - then é a validação do que foi feito, seus asserts.
+ * 
+ * @author rinaldodev
+ *
+ */
 @ExtendWith(MockitoExtension.class)
 public class FrutasResourceTest {
 

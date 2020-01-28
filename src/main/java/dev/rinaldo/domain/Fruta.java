@@ -4,6 +4,17 @@ import javax.persistence.Entity;
 
 import org.hibernate.annotations.NaturalId;
 
+/**
+ * Exemplo de {@link Entity}.
+ * 
+ * Especificações utilizadas:
+ * - JPA e Hibernate através das anotações {@link Entity} e {@link NaturalId}.
+ * 
+ * Veja a classe {@link AbstractEntity} para mais informações sobre padrões de implementação.
+ * 
+ * @author rinaldodev
+ *
+ */
 @Entity
 public class Fruta extends AbstractEntity {
 

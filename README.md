@@ -53,19 +53,19 @@ A maior parte do que está sendo usado contém documentação própria, então n
 
 ## Dúvidas de Quarkus ou MicroProfile
 
-Quarkus: https://quarkus.io/
-MicroProfile: https://microprofile.io/
+- Quarkus: https://quarkus.io/
+- MicroProfile: https://microprofile.io/
 
 ## Dúvidas nos Testes Unitários
 
-JUnit5/Jupiter: https://junit.org/junit5/docs/current/user-guide/
-Mockito: https://javadoc.io/static/org.mockito/mockito-core/3.2.4/org/mockito/Mockito.html
+- JUnit5/Jupiter: https://junit.org/junit5/docs/current/user-guide/
+- Mockito: https://javadoc.io/static/org.mockito/mockito-core/3.2.4/org/mockito/Mockito.html
 
 ## Dúvidas nos Testes Integrados
 
-Quarkus: https://quarkus.io/guides/getting-started-testing
-Rest Assured: https://github.com/rest-assured/rest-assured/wiki/usage
-TestContainers: https://www.testcontainers.org/quickstart/junit_5_quickstart/
+- Quarkus: https://quarkus.io/guides/getting-started-testing
+- Rest Assured: https://github.com/rest-assured/rest-assured/wiki/usage
+- TestContainers: https://www.testcontainers.org/quickstart/junit_5_quickstart/
 
 
 ------------------------------------

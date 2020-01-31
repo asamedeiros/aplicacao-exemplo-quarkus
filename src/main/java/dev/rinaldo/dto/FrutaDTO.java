@@ -1,11 +1,7 @@
 package dev.rinaldo.dto;
 
 import dev.rinaldo.domain.Fruta;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import lombok.Value;
 
 /**
@@ -32,13 +28,10 @@ import lombok.Value;
  */
 @Value
 @Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-@EqualsAndHashCode
-@ToString
 public class FrutaDTO {
-
-    private final Long id;
-    private final String nome;
-    private final Integer votos;
-  
+    
+    Long id;
+    String nome;
+    Integer votos;
+    
 }

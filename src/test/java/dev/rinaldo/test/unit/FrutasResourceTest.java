@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTimeout;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -15,6 +17,9 @@ import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -92,7 +97,7 @@ public class FrutasResourceTest {
         final List<Fruta> frutasList = Arrays.asList(fruta1, fruta2, fruta3);
         when(frutasDAO.listAll()).thenReturn(frutasList);
 
-        final FrutasResource frutasResource = newFrutasResource(frutasConfigVazio);
+        final FrutasResource frutasResource = newFrutasResource();
 
         // when
         final List<FrutaDTO> actual = frutasResource.get();
@@ -165,7 +170,7 @@ public class FrutasResourceTest {
         List<Fruta> frutas = Arrays.asList(fruta1, fruta2, fruta3);
         when(frutasDAO.findMaisVotadas()).thenReturn(frutas);
 
-        FrutasResource frutasResource = newFrutasResource(frutasConfigVazio);
+        FrutasResource frutasResource = newFrutasResource();
 
         // when
         List<FrutaDTO> actual = frutasResource.getMaisVotadas();
@@ -206,7 +211,7 @@ public class FrutasResourceTest {
     @Test
     public void listarMaisVotadas_SimularExcecao_TerceiraChamada() {
         // setup
-        FrutasResource frutasResource = new FrutasResource(frutasDAO, logger, frutasConfigComExcecao, frutaMapper);
+        FrutasResource frutasResource = newFrutasResource(frutasConfigComExcecao);
 
         // when
         try {
@@ -223,7 +228,7 @@ public class FrutasResourceTest {
     @Test
     public void fallbackFrutasMaisVotadas() {
         // setup
-        FrutasResource frutasResource = new FrutasResource(frutasDAO, logger, frutasConfigComExcecao, frutaMapper);
+        FrutasResource frutasResource = newFrutasResource(frutasConfigComExcecao);
 
         // when
         List<FrutaDTO> maisVotadas = frutasResource.fallbackFrutasMaisVotadas();
@@ -231,7 +236,41 @@ public class FrutasResourceTest {
         // then
         assertNotNull(maisVotadas, "Não retornou nenhuma lista no fallback, mas deveria ter retornado algo.");
     }
+    
+    @Test
+    public void apagarFruta_Existente() {
+        // setup
+        FrutasResource frutasResource = newFrutasResource();
+        when(frutasDAO.delete(anyString(), anyLong())).thenReturn(1L);
+        int expectedStatus = Status.NO_CONTENT.getStatusCode();
+        
+        // when
+        Response deleteResponse = frutasResource.delete(1L);
 
+        // then
+        assertNotNull(deleteResponse, "Não retornou nenhuma response ao deletar uma fruta existente, mas deveria.");
+        assertEquals(expectedStatus, deleteResponse.getStatus(), "Retornou status errado ao apagar uma fruta existente.");
+    }
+    
+    @Test
+    public void apagarFruta_Inexistente() {
+        // setup
+        FrutasResource frutasResource = newFrutasResource();
+        when(frutasDAO.delete(anyString(), anyLong())).thenReturn(0L);
+        int expectedStatus = Status.NOT_FOUND.getStatusCode();
+        
+        // when
+        Response deleteResponse = frutasResource.delete(1L);
+
+        // then
+        assertNotNull(deleteResponse, "Não retornou nenhuma response ao deletar uma fruta inexistente, mas deveria.");
+        assertEquals(expectedStatus, deleteResponse.getStatus(), "Retornou status errado ao apagar uma fruta inexistente.");
+    }
+
+    private FrutasResource newFrutasResource() {
+        return newFrutasResource(frutasConfigVazio);
+    }
+    
     private FrutasResource newFrutasResource(FrutasConfig frutasConfig) {
         FrutasResource frutasResource = new FrutasResource(frutasDAO, logger, frutasConfig, frutaMapper);
         return frutasResource;

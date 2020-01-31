@@ -1,17 +1,19 @@
 package dev.rinaldo.test.integrated;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-import javax.transaction.Transactional;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -42,11 +44,14 @@ import io.restassured.http.ContentType;
  * A quantidade de testes integrados deve ser muito menos do que a de unitários, pois são mais lentos e caros de desenvolver.
  * Eles são executados em uma fase diferente da build.
  * 
+ * A autenticação de usuários para testes fica no application.properties, nas propriedades "quarkus.security.users.file".
+ * 
  * @author rinaldodev
  *
  */
 @QuarkusTest
 @Testcontainers
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class FrutasResourceIT {
 
     @SuppressWarnings("rawtypes")
@@ -74,16 +79,42 @@ public class FrutasResourceIT {
     }
 
     @Test
-    @Transactional
-    public void dado_FrutasNaBase_quando_BuscarFrutas_entao_DeveRetornar200ComId1() {
+    @Order(1)
+    public void dado_FrutasNaBase_quando_BuscarFrutas_entao_DeveRetornar200ComIdsNomesVotos() {
         given()
-                .when().get("/frutas")
+                .when()
+                .get("/frutas")
                 .then()
                 .statusCode(200)
                 .contentType(ContentType.JSON)
                 .body("id", hasItems(1, 2, 3, 4, 5, 6, 7))
                 .body("nome", hasSize(greaterThanOrEqualTo(7)))
                 .body("votos", hasSize(greaterThanOrEqualTo(7)));
+    }
+
+    @Test
+    @Order(2)
+    public void dado_FrutasNaBase_quando_BuscarFrutasMaisVotadas_entao_DeveRetornar200Com3Frutas() {
+        given()
+                .when()
+                .get("/frutas/maisVotadas")
+                .then()
+                .statusCode(200)
+                .contentType(ContentType.JSON)
+                .body("id", contains(3, 6, 4))
+                .body("nome", hasSize(3))
+                .body("votos", hasSize(3));
+    }
+
+    @Test
+    @Order(3)
+    public void dado_Frutas1NaBase_quando_ApagarFruta1_entao_DeveRetornar204() {
+        given()
+                .auth().preemptive().basic("alice", "alice123")
+                .when()
+                .delete("/frutas/1")
+                .then()
+                .statusCode(204);
     }
 
 }

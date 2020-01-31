@@ -30,6 +30,8 @@ Especificação MicroProfile:
 Extensões Quarkus (fora do MicroProfile):
 - Hibernate Panache
 - JDBC PostgreSQL
+- OpenID Connect Adapter
+	- Da forma como está implementada no código, poderia ser MicroProfile JWT. Apenas preferi utilizar a extensão de OpenID pois possui mais recursos e existe uma grande chance de você precisar utilizar em produção.
 
 Bibliotecas externas:
 - Log com SLF4J
@@ -37,12 +39,17 @@ Bibliotecas externas:
 
 Testes Unitários:
 - JUnit5/Jupiter
-- Mockito
+- Mockito - Permite criar Mocks com facilidade
 
 Testes integrados:
 - Quarkus 
 - Rest Assured
 - TestContainers
+- Elytron
+
+Infra:
+- Keycloak
+- PostgreSQL
 
 Aceito sugestões de novas extensões/bibliotecas para exemplificar. :)
 
@@ -76,12 +83,17 @@ Para executar os testes unitários e integrados:
 
 ## Rodando a aplicação no modo dev
 
-Primeiro inicie um banco PostgreSQL em um container Docker com o comando:
+1. Primeiro inicie um banco PostgreSQL em um container Docker com o comando:
 ```
 docker run -e POSTGRES_PASSWORD=quarkus_dev -e POSTGRES_USER=quarkus_dev -e POSTGRES_DB=frutas -p 127.0.0.1:5432:5432/tcp postgres:9.6.12
 ```
 
-Depois execute a aplicação no modo dev, que permite live coding (salvou, tá visível), com o comando abaixo:
+1. Depois inicie o Keycloak em um container Docker com o comando (no windows talvez a variável ${PWD} seja diferente):
+```
+docker run -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -e KEYCLOAK_IMPORT=/tmp/quarkus-realm.json -v ${PWD}/quarkus-realm.json:/tmp/quarkus-realm.json -p 8180:8080 jboss/keycloak
+```
+
+1. Depois execute a aplicação no modo dev, que permite live coding (salvou, tá visível), com o comando abaixo:
 ```
 ./mvnw quarkus:dev
 ```

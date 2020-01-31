@@ -1,3 +1,6 @@
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/rinaldodev/aplicacao-exemplo-quarkus/Java CI?style=for-the-badge)
+
+
 # RinaldoDev - Aplicação de Exemplo Quarkus
 
 Este projeto é uma base para iniciar novos projetos utilizando Quarkus.

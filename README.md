@@ -39,7 +39,7 @@ Bibliotecas externas:
 
 Testes Unitários:
 - JUnit5/Jupiter
-- Mockito - Permite criar Mocks com facilidade
+- Mockito
 
 Testes integrados:
 - Quarkus 
@@ -83,17 +83,17 @@ Para executar os testes unitários e integrados:
 
 ## Rodando a aplicação no modo dev
 
-1. Primeiro inicie um banco PostgreSQL em um container Docker com o comando:
+Execute todos os comandos na raiz do projeto.
+
+1. Inicie um banco PostgreSQL em um container Docker com o comando:
 ```
 docker run -e POSTGRES_PASSWORD=quarkus_dev -e POSTGRES_USER=quarkus_dev -e POSTGRES_DB=frutas -p 127.0.0.1:5432:5432/tcp postgres:9.6.12
 ```
-
-1. Depois inicie o Keycloak em um container Docker com o comando (no windows talvez a variável ${PWD} seja diferente):
+2. Inicie o Keycloak em um container Docker com o comando (no windows talvez a variável ${PWD} seja diferente):
 ```
 docker run -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -e KEYCLOAK_IMPORT=/tmp/quarkus-realm.json -v ${PWD}/quarkus-realm.json:/tmp/quarkus-realm.json -p 8180:8080 jboss/keycloak
 ```
-
-1. Depois execute a aplicação no modo dev, que permite live coding (salvou, tá visível), com o comando abaixo:
+3. Execute a aplicação no modo dev, que permite live coding (salvou, tá visível), com o comando abaixo:
 ```
 ./mvnw quarkus:dev
 ```

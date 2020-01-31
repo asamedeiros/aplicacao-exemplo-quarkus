@@ -39,6 +39,6 @@ public class FrutaDTO {
 
     private final Long id;
     private final String nome;
-    private Integer votos;
+    private final Integer votos;
   
 }

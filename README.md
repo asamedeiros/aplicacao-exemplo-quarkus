@@ -1,8 +1,6 @@
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/rinaldodev/aplicacao-exemplo-quarkus/Java%20CI?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/rinaldodev/aplicacao-exemplo-quarkus?style=for-the-badge)
 ![GitHub](https://img.shields.io/github/license/rinaldodev/aplicacao-exemplo-quarkus?style=for-the-badge)
-![Codacy grade](https://img.shields.io/codacy/grade/9559b0806bab479c901e6f97e33f00bd?style=for-the-badge)
-
 
 # Aplicação de Exemplo Quarkus
 

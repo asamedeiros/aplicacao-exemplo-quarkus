@@ -11,8 +11,7 @@
 		<lombok.version>1.18.10</lombok.version>
 		<compiler-plugin.version>3.8.1</compiler-plugin.version>
 		<maven.compiler.parameters>true</maven.compiler.parameters>
-		<maven.compiler.source>11</maven.compiler.source>
-		<maven.compiler.target>11</maven.compiler.target>
+		<java-version>11</java-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<quarkus-plugin.version>1.2.0.Final</quarkus-plugin.version>
@@ -137,8 +136,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${compiler-plugin.version}</version>
 				<configuration>
-					<source>11</source>
-					<target>11</target>
+					<source>${java-version}</source>
+					<target>${java-version}</target>
 					<compilerArgs>
 						<compilerArg>-Alombok.addLombokGeneratedAnnotation=true</compilerArg>
 						<compilerArg>-Alombok.anyConstructor.addConstructorProperties=true</compilerArg>

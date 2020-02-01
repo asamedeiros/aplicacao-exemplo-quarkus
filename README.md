@@ -3,13 +3,12 @@
 ![GitHub](https://img.shields.io/github/license/rinaldodev/aplicacao-exemplo-quarkus?style=for-the-badge)
 
 
-# RinaldoDev - Aplicação de Exemplo Quarkus
+# Aplicação de Exemplo Quarkus
 
-Este projeto é uma base para iniciar novos projetos utilizando Quarkus.
+Este projeto é uma base de exemplos para iniciar novos projetos utilizando Quarkus.
 
 Algumas escolhas são baseadas na minha opinião sobre alguns conceitos, como:
 
-- Utilizar Panache com repositórios e não herdar as entidades de PanacheEntity.
 - Focar na facilidade de executar testes unitários de verdade, separados dos testes de integração.
 - Focar em um design que facilite a execução de testes unitários com Mocks.
 - Entre outros que depois adiciono aqui.
@@ -19,6 +18,7 @@ Então não entenda como "a melhor forma" de criar um projeto Quarkus, mas sim c
 - Extensões do Quarkus.
 - Especificações do MicroProfile.
 - Bibliotecas que acho que "encaixam bem" com o Quarkus.
+- Padrões que considero mais razoáveis.
 
 # Especificações MicroProfile, Extensões e Bibliotecas
 

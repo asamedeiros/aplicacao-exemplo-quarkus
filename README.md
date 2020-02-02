@@ -44,6 +44,10 @@ Bibliotecas externas:
 Testes Unitários:
 - JUnit5/Jupiter
 - Mockito
+- JaCoCo
+
+Testes de Mutação:
+- Pitest (PIT)
 
 Testes integrados:
 - Quarkus 
@@ -60,7 +64,8 @@ Aceito sugestões de novas extensões/bibliotecas para exemplificar. :)
 # Configuração de IDE
 
 - Esse projeto usa Maven, então importe como projeto Maven na sua IDE.
-- Por conta do uso do MapStruct, o projeto requer que Java Annotation Processing esteja habilitado na IDE. Veja aqui como habilitar nas principais IDEs: https://mapstruct.org/documentation/ide-support/
+- Pelo uso de MapStruct, o projeto requer que Java Annotation Processing esteja habilitado na IDE: https://mapstruct.org/documentation/ide-support/
+- Pelo uso de Lombok, é necessário instalar o lombok como plugin na sua IDE: https://projectlombok.org/setup/overview
 
 # Executando
 
@@ -69,20 +74,27 @@ Esse projeto é fortemente contruído ao redor do Quarkus! Veja mais em: https:/
 ## Dependências
 
 - Docker: É necessário ter o Docker instalado para rodar os testes integrados ou executar a aplicação, pois vários exemplos utilizam imagens do docker. Instalação do Docker: https://docs.docker.com/install/
-- JDK 11: É necessário ter uma JDK 11 disponível localmente e configurada no JAVA_HOME.
+- JDK 10~13: É necessário ter uma JDK entre as versões 10 e 13 disponível localmente e configurada no JAVA_HOME.
 
 ## Testes unitários
 
 Para executar os testes unitários:
 ```
-./mvnw test
+./mvnw clean test
+```
+
+## Testes de Mutação
+
+Para executar os testes de mutação:
+```
+./mvnw clean test-compile org.pitest:pitest-maven:mutationCoverage
 ```
 
 ## Testes integrados
 
 Para executar os testes unitários e integrados:
 ```
-./mvnw verify
+./mvnw failsafe:integration-test failsafe:verify
 ```
 
 ## Rodando a aplicação no modo dev
@@ -104,7 +116,7 @@ docker run -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -e KEYCLOAK_IMPORT=
 
 ## Empacotando
 
-Para empacotar a aplicação utilize o comando `./mvnw package`.
+Para empacotar a aplicação utilize o comando `./mvnw clean package -DskipTests=true`.
 Esse comando irá criar o jar `quarkus-example-app-X.X.X-runner.jar` no diretório `/target`.
 
 Para executar a aplicação empacotada utilize o comando `java -jar target/quarkus-example-app-X.X.X-runner.jar`.
@@ -129,6 +141,11 @@ A maior parte do que está sendo usado contém documentação própria, então n
 
 - JUnit5/Jupiter: https://junit.org/junit5/docs/current/user-guide/
 - Mockito: https://javadoc.io/static/org.mockito/mockito-core/3.2.4/org/mockito/Mockito.html
+- JaCoCo: https://www.jacoco.org/jacoco/trunk/doc/
+
+## Dúvidas nos Testes de Mutação
+
+- Pitest (PIT): https://pitest.org/
 
 ## Dúvidas nos Testes Integrados
 

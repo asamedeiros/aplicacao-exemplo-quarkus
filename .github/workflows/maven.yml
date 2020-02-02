@@ -24,9 +24,11 @@ jobs:
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
           ${{ runner.os }}-maven-
-    - name: Build Java ${{ matrix.java }} ${{ matrix.os }}
-      run: mvn clean verify -DskipTests=true -Dmaven.javadoc.skip=true -Djava-version=${{ matrix.java }} -Djava-version=${{ matrix.java }} -Dmaven.compiler.compilerVersion=${{ matrix.java }} -Dmaven.compiler.release=${{ matrix.java }} -B -V
-    - name: Testes Unitários
-      run: mvn test -Djava-version=${{ matrix.java }} -Djava-version=${{ matrix.java }} -Dmaven.compiler.compilerVersion=${{ matrix.java }} -Dmaven.compiler.release=${{ matrix.java }} -B -V
+    - name: Testes unitários
+      run: mvn clean test -Djava-version=${{ matrix.java }} -Dmaven.compiler.compilerVersion=${{ matrix.java }} -Dmaven.compiler.release=${{ matrix.java }} -B -V
+    - name: Testes de mutação
+      run: mvn clean test-compile org.pitest:pitest-maven:mutationCoverage -Djava-version=${{ matrix.java }} -Dmaven.compiler.compilerVersion=${{ matrix.java }} -Dmaven.compiler.release=${{ matrix.java }} -B -V      
+    - name: Compilação e Empacotamento
+      run: mvn clean package -DskipTests=true -Dmaven.javadoc.skip=true -Djava-version=${{ matrix.java }} -Dmaven.compiler.compilerVersion=${{ matrix.java }} -Dmaven.compiler.release=${{ matrix.java }} -B -V
     - name: Testes Integrados
-      run: mvn failsafe:integration-test failsafe:verify -Djava-version=${{ matrix.java }} -Djava-version=${{ matrix.java }} -Dmaven.compiler.compilerVersion=${{ matrix.java }} -Dmaven.compiler.release=${{ matrix.java }} -B -V
+      run: mvn failsafe:integration-test failsafe:verify -Djava-version=${{ matrix.java }} -Dmaven.compiler.compilerVersion=${{ matrix.java }} -Dmaven.compiler.release=${{ matrix.java }} -B -V

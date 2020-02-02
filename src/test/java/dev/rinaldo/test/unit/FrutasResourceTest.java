@@ -1,6 +1,7 @@
 package dev.rinaldo.test.unit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTimeout;
@@ -235,6 +236,7 @@ public class FrutasResourceTest {
 
         // then
         assertNotNull(maisVotadas, "Não retornou nenhuma lista no fallback, mas deveria ter retornado algo.");
+        assertFalse(maisVotadas.isEmpty(), "Retornou uma lista vazia no fallback.");
     }
     
     @Test

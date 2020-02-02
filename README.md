@@ -9,9 +9,9 @@ Este projeto é uma base de exemplos para iniciar novos projetos utilizando Quar
 
 Algumas escolhas são baseadas na minha opinião sobre alguns conceitos, como:
 
-- Focar na facilidade de executar testes unitários de verdade, separados dos testes de integração.
+- Focar na facilidade de executar testes unitários de verdade, separados dos testes de Quarkus.
 - Focar em um design que facilite a execução de testes unitários com Mocks.
-- Entre outros que depois adiciono aqui.
+- Entre outros.
 
 Então não entenda como "a melhor forma" de criar um projeto Quarkus, mas sim como um exemplo de utilização de:
 
@@ -51,7 +51,7 @@ Testes Unitários:
 Testes de Mutação:
 - Pitest (PIT)
 
-Testes integrados:
+Testes de Quarkus:
 - Quarkus 
 - Rest Assured
 - TestContainers
@@ -85,21 +85,21 @@ Para executar todos os testes (de unidade, de mutação, e de quarkus):
 ./mvnw clean tests
 ```
 
-### Testes unitários
+### Testes de unidade
 
 Para executar somente os testes de unidade:
 ```
 ./mvnw clean test -DskipMutationTests -DskipQuarkusTests
 ```
 
-### Testes de Mutação
+### Testes de mutação
 
 Para executar somente os testes de mutação:
 ```
 ./mvnw clean test -DskipUnitTests -DskipQuarkusTests
 ```
 
-### Testes integrados
+### Testes de quarkus
 
 Para executar somente os testes de quarkus:
 ```
@@ -123,6 +123,8 @@ docker run -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -e KEYCLOAK_IMPORT=
 ./mvnw quarkus:dev
 ```
 
+Se tiver algum problema de classe/método/construtor inexistente, pode ser que as anotações do Lombok ou MapStruct não tenham sido processadas corretamente. Nesse caso, experimente fazer um `./mvnw compile quarkus:dev`.
+
 ## Empacotando
 
 Para empacotar a aplicação utilize o comando `./mvnw clean package -DskipTests=true`.
@@ -130,7 +132,7 @@ Esse comando irá criar o jar `quarkus-example-app-X.X.X-runner.jar` no diretór
 
 Para executar a aplicação empacotada utilize o comando `java -jar target/quarkus-example-app-X.X.X-runner.jar`.
 
-Perceba que a aplicação não precisa de implantada em um servidor.
+Perceba que a aplicação não precisa ser implantada em um servidor.
 
 ## Executável nativo
 
@@ -139,24 +141,24 @@ A princípio, esse não é o objetivo desse projeto de exemplo. Caso queira sabe
 
 # Dúvidas de utilização
 
-A maior parte do que está sendo usado contém documentação própria, então não convém explicar a utilização nesse projeto, apenas exemplificar.
+A maior parte do que está sendo usado contém documentação própria, então não convém explicar a utilização nesse projeto, apenas exemplificar. Abaixo estão apresentadas a maiorias das biliotecas utilizadas, suas funções básicas e suas respectivas documentações.
 
 ## Dúvidas de Quarkus ou MicroProfile
 
 - [Quarkus](https://quarkus.io/): Framework poderoso para criar aplicações Java cloud-ready.
 - [MicroProfile](https://microprofile.io/): Conjunto de especificações que facilitam a criação de Microsserviços.
 
-## Dúvidas nos Testes Unitários
+## Dúvidas nos Testes de unidade
 
 - [JUnit5/Jupiter](https://junit.org/junit5/docs/current/user-guide/): Framework para implementação e execução de testes.
 - [Mockito](https://javadoc.io/static/org.mockito/mockito-core/3.2.4/org/mockito/Mockito.html): Framework para criar Mocks dentro dos testes.
 - [JaCoCo](https://www.jacoco.org/jacoco/trunk/doc/): Ferramenta para gerar relatórios de cobertura dos testes.
 
-## Dúvidas nos Testes de Mutação
+## Dúvidas nos Testes de mutação
 
 - [Pitest (PIT)](https://pitest.org/): Ferramenta para gerar e executar testes de mutação.
 
-## Dúvidas nos Testes Integrados
+## Dúvidas nos Testes de Quarkus
 
 - [Quarkus](https://quarkus.io/guides/getting-started-testing): Quarkus também pode ser utilizado para rodar testes.
 - [Rest Assured](https://github.com/rest-assured/rest-assured/wiki/usage): Framework para validação de endpoints rest.

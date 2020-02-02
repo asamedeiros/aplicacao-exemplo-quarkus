@@ -1,6 +1,7 @@
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/rinaldodev/aplicacao-exemplo-quarkus/javaci?style=for-the-badge)
-![GitHub last commit](https://img.shields.io/github/last-commit/rinaldodev/aplicacao-exemplo-quarkus?style=for-the-badge)
-![GitHub](https://img.shields.io/github/license/rinaldodev/aplicacao-exemplo-quarkus?style=for-the-badge)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/rinaldodev/aplicacao-exemplo-quarkus/javaci?style=for-the-badge)](https://github.com/rinaldodev/aplicacao-exemplo-quarkus/actions)
+[![Sonar Quality Gate](https://img.shields.io/sonar/quality_gate/rinaldodev_aplicacao-exemplo-quarkus?server=https%3A%2F%2Fsonarcloud.io&style=for-the-badge)](https://sonarcloud.io/dashboard?id=rinaldodev_aplicacao-exemplo-quarkus)
+[![GitHub last commit](https://img.shields.io/github/last-commit/rinaldodev/aplicacao-exemplo-quarkus?style=for-the-badge)](https://github.com/rinaldodev/aplicacao-exemplo-quarkus/commits/master)
+[![GitHub](https://img.shields.io/github/license/rinaldodev/aplicacao-exemplo-quarkus?style=for-the-badge)](https://github.com/rinaldodev/aplicacao-exemplo-quarkus/blob/master/LICENSE)
 
 # Aplicação de Exemplo Quarkus
 

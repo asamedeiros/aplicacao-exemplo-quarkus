@@ -240,14 +240,14 @@ public class FrutasResourceTest {
         String expectedNomeFruta = "Ameixa";
         assertEquals(expectedNomeFruta, maisVotadas.get(0).getNome(), "Nome da fruta não era o esperado.");
     }
-    
+
     @Test
     public void apagarFruta_Existente() {
         // setup
         FrutasResource frutasResource = newFrutasResource();
         when(frutasDAO.delete(anyString(), anyLong())).thenReturn(1L);
         int expectedStatus = Status.NO_CONTENT.getStatusCode();
-        
+
         // when
         Response deleteResponse = frutasResource.delete(1L);
 
@@ -255,14 +255,14 @@ public class FrutasResourceTest {
         assertNotNull(deleteResponse, "Não retornou nenhuma response ao deletar uma fruta existente, mas deveria.");
         assertEquals(expectedStatus, deleteResponse.getStatus(), "Retornou status errado ao apagar uma fruta existente.");
     }
-    
+
     @Test
     public void apagarFruta_Inexistente() {
         // setup
         FrutasResource frutasResource = newFrutasResource();
         when(frutasDAO.delete(anyString(), anyLong())).thenReturn(0L);
         int expectedStatus = Status.NOT_FOUND.getStatusCode();
-        
+
         // when
         Response deleteResponse = frutasResource.delete(1L);
 
@@ -274,7 +274,7 @@ public class FrutasResourceTest {
     private FrutasResource newFrutasResource() {
         return newFrutasResource(frutasConfigVazio);
     }
-    
+
     private FrutasResource newFrutasResource(FrutasConfig frutasConfig) {
         FrutasResource frutasResource = new FrutasResource(frutasDAO, logger, frutasConfig, frutaMapper);
         return frutasResource;

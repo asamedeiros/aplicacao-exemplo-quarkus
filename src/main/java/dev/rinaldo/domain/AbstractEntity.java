@@ -17,9 +17,11 @@ import org.hibernate.annotations.NaturalId;
  * subclasses. Não gosto de utilizar chaves de negócio, pois reduzem a flexibilidade de refactor e mudanças de regras de
  * negócio.
  * 
- * Essa classe também força a subclasses, no caso as entidades, a implementarem seu {@link Object#equals(Object)} e {@link Object#hashCode()}.
+ * Essa classe também força a subclasses, no caso as entidades, a implementarem seu {@link Object#equals(Object)} e
+ * {@link Object#hashCode()}.
  * 
- * No Hibernate, penso que o ideal é anotar os campos que seriam chaves negociais com {@link NaturalId} e utilizá-los no equals e hashcode.
+ * No Hibernate, penso que o ideal é anotar os campos que seriam chaves negociais com {@link NaturalId} e utilizá-los no equals
+ * e hashcode.
  * 
  * @author rinaldodev
  *

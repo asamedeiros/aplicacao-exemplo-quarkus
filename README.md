@@ -78,25 +78,32 @@ Esse projeto é fortemente contruído ao redor do [Quarkus](https://quarkus.io/)
 - Docker: É necessário ter o Docker instalado para rodar os testes integrados ou executar a aplicação, pois vários exemplos utilizam imagens do docker. [Instalação do Docker](https://docs.docker.com/install/).
 - JDK 10~13: É necessário ter uma JDK entre as versões 10 e 13 disponível localmente e configurada no JAVA_HOME.
 
-## Testes unitários
+## Testes
 
-Para executar os testes unitários:
+Para executar todos os testes (de unidade, de mutação, e de quarkus):
 ```
-./mvnw clean test
-```
-
-## Testes de Mutação
-
-Para executar os testes de mutação:
-```
-./mvnw clean test-compile org.pitest:pitest-maven:mutationCoverage
+./mvnw clean tests
 ```
 
-## Testes integrados
+### Testes unitários
 
-Para executar os testes unitários e integrados:
+Para executar somente os testes de unidade:
 ```
-./mvnw failsafe:integration-test failsafe:verify
+./mvnw clean test -DskipMutationTests -DskipQuarkusTests
+```
+
+### Testes de Mutação
+
+Para executar somente os testes de mutação:
+```
+./mvnw clean test -DskipUnitTests -DskipQuarkusTests
+```
+
+### Testes integrados
+
+Para executar somente os testes de quarkus:
+```
+./mvnw clean test -DskipMutationTests -DskipUnitTests
 ```
 
 ## Rodando a aplicação no modo dev

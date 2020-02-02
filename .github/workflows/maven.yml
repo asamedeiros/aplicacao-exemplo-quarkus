@@ -1,7 +1,11 @@
 name: javaci
 on:
   push:
+    branches: 
+      - master
   pull_request:
+    branches: 
+      - master
   schedule:
       - cron: '0 1/2 * * *'  
 jobs:
@@ -24,31 +28,15 @@ jobs:
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
           ${{ runner.os }}-maven-
-    - name: Testes unitários
-      run: mvn clean test -Djava-version=${{ matrix.java }} -Dmaven.compiler.compilerVersion=${{ matrix.java }} -Dmaven.compiler.release=${{ matrix.java }} -B -V
+    - name: Validação de formatação
+      run: mvn formatter:validate -Djava-version=${{ matrix.java }} -Dmaven.compiler.compilerVersion=${{ matrix.java }} -Dmaven.compiler.release=${{ matrix.java }} -B -V
+    - name: Validação de imports
+      run: mvn impsort:check -Djava-version=${{ matrix.java }} -Dmaven.compiler.compilerVersion=${{ matrix.java }} -Dmaven.compiler.release=${{ matrix.java }} -B -V      
+    - name: Testes de unidade
+      run: mvn clean test -DskipMutationTests -DskipQuarkusTests -Djava-version=${{ matrix.java }} -Dmaven.compiler.compilerVersion=${{ matrix.java }} -Dmaven.compiler.release=${{ matrix.java }} -B -V
     - name: Testes de mutação
-      run: mvn clean test-compile org.pitest:pitest-maven:mutationCoverage -Djava-version=${{ matrix.java }} -Dmaven.compiler.compilerVersion=${{ matrix.java }} -Dmaven.compiler.release=${{ matrix.java }} -B -V      
+      run: mvn clean test -DskipUnitTests -DskipQuarkusTests -Djava-version=${{ matrix.java }} -Dmaven.compiler.compilerVersion=${{ matrix.java }} -Dmaven.compiler.release=${{ matrix.java }} -B -V
+    - name: Testes de Quarkus
+      run: mvn clean test -DskipMutationTests -DskipUnitTests -Djava-version=${{ matrix.java }} -Dmaven.compiler.compilerVersion=${{ matrix.java }} -Dmaven.compiler.release=${{ matrix.java }} -B -V      
     - name: Compilação e Empacotamento
-      run: mvn clean package -DskipTests=true -Dmaven.javadoc.skip=true -Djava-version=${{ matrix.java }} -Dmaven.compiler.compilerVersion=${{ matrix.java }} -Dmaven.compiler.release=${{ matrix.java }} -B -V
-    - name: Testes Integrados
-      run: mvn failsafe:integration-test failsafe:verify -Djava-version=${{ matrix.java }} -Dmaven.compiler.compilerVersion=${{ matrix.java }} -Dmaven.compiler.release=${{ matrix.java }} -B -V
-  sonar:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Java
-      uses: actions/setup-java@v1
-      with:
-        java-version: 11
-    - name: Cache Maven
-      uses: actions/cache@v1
-      with:
-        path: ~/.m2/repository
-        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-        restore-keys: |
-          ${{ runner.os }}-maven-
-    - name: Sonar
-      run: mvn clean package sonar:sonar -Djava-version=11 -Dmaven.compiler.compilerVersion=11 -Dmaven.compiler.release=11 -B -V
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.loginsonar }}
+      run: mvn clean package -DskipTests -DskipPitest -Dmaven.javadoc.skip=true -Djava-version=${{ matrix.java }} -Dmaven.compiler.compilerVersion=${{ matrix.java }} -Dmaven.compiler.release=${{ matrix.java }} -B -V

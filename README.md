@@ -66,16 +66,16 @@ Aceito sugestões de novas extensões/bibliotecas para exemplificar. :)
 # Configuração de IDE
 
 - Esse projeto usa Maven, então importe como projeto Maven na sua IDE.
-- Pelo uso de MapStruct, o projeto requer que Java Annotation Processing esteja habilitado na IDE: https://mapstruct.org/documentation/ide-support/
-- Pelo uso de Lombok, é necessário instalar o lombok como plugin na sua IDE: https://projectlombok.org/setup/overview
+- Pelo uso de MapStruct, [o projeto requer que Java Annotation Processing esteja habilitado na IDE](https://mapstruct.org/documentation/ide-support/).
+- Pelo uso de Lombok, [é necessário instalar o lombok como plugin na sua IDE](https://projectlombok.org/setup/overview).
 
 # Executando
 
-Esse projeto é fortemente contruído ao redor do Quarkus! Veja mais em: https://quarkus.io/.
+Esse projeto é fortemente contruído ao redor do [Quarkus](https://quarkus.io/)!
 
 ## Dependências
 
-- Docker: É necessário ter o Docker instalado para rodar os testes integrados ou executar a aplicação, pois vários exemplos utilizam imagens do docker. Instalação do Docker: https://docs.docker.com/install/
+- Docker: É necessário ter o Docker instalado para rodar os testes integrados ou executar a aplicação, pois vários exemplos utilizam imagens do docker. [Instalação do Docker](https://docs.docker.com/install/).
 - JDK 10~13: É necessário ter uma JDK entre as versões 10 e 13 disponível localmente e configurada no JAVA_HOME.
 
 ## Testes unitários
@@ -128,7 +128,7 @@ Perceba que a aplicação não precisa de implantada em um servidor.
 ## Executável nativo
 
 Com o Quarkus é possível criar imagens nativas, super leves e com tempo de inicialização super rápido. 
-A princípio, esse não é o objetivo desse projeto de exemplo. Caso queira saber mais, veja aqui: https://quarkus.io/guides/building-native-image-guide.
+A princípio, esse não é o objetivo desse projeto de exemplo. Caso queira saber mais, [veja aqui](https://quarkus.io/guides/building-native-image-guide).
 
 # Dúvidas de utilização
 
@@ -136,21 +136,25 @@ A maior parte do que está sendo usado contém documentação própria, então n
 
 ## Dúvidas de Quarkus ou MicroProfile
 
-- Quarkus: https://quarkus.io/
-- MicroProfile: https://microprofile.io/
+- [Quarkus](https://quarkus.io/): Framework poderoso para criar aplicações Java cloud-ready.
+- [MicroProfile](https://microprofile.io/): Conjunto de especificações que facilitam a criação de Microsserviços.
 
 ## Dúvidas nos Testes Unitários
 
-- JUnit5/Jupiter: https://junit.org/junit5/docs/current/user-guide/
-- Mockito: https://javadoc.io/static/org.mockito/mockito-core/3.2.4/org/mockito/Mockito.html
-- JaCoCo: https://www.jacoco.org/jacoco/trunk/doc/
+- [JUnit5/Jupiter](https://junit.org/junit5/docs/current/user-guide/): Framework para implementação e execução de testes.
+- [Mockito](https://javadoc.io/static/org.mockito/mockito-core/3.2.4/org/mockito/Mockito.html): Framework para criar Mocks dentro dos testes.
+- [JaCoCo](https://www.jacoco.org/jacoco/trunk/doc/): Ferramenta para gerar relatórios de cobertura dos testes.
 
 ## Dúvidas nos Testes de Mutação
 
-- Pitest (PIT): https://pitest.org/
+- [Pitest (PIT)](https://pitest.org/): Ferramenta para gerar e executar testes de mutação.
 
 ## Dúvidas nos Testes Integrados
 
-- Quarkus: https://quarkus.io/guides/getting-started-testing
-- Rest Assured: https://github.com/rest-assured/rest-assured/wiki/usage
-- TestContainers: https://www.testcontainers.org/quickstart/junit_5_quickstart/
+- [Quarkus](https://quarkus.io/guides/getting-started-testing): Quarkus também pode ser utilizado para rodar testes.
+- [Rest Assured](https://github.com/rest-assured/rest-assured/wiki/usage): Framework para validação de endpoints rest.
+- [TestContainers](https://www.testcontainers.org/quickstart/junit_5_quickstart/): Framework para criação de containers docker durante o teste.
+
+# Quero contribuir!
+
+Ótimo! [Veja como aqui](https://github.com/rinaldodev/aplicacao-exemplo-quarkus/blob/master/CONTRIBUTING.md).

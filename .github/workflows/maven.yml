@@ -48,4 +48,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-maven-
     - name: Sonar
-      run: mvn clean package sonar:sonar -Djava-version=11 -Dmaven.compiler.compilerVersion=11 -Dmaven.compiler.release=11 -Dsonar.login=${{ secrets.loginsonar }} -B -V
+      run: mvn clean package sonar:sonar -Djava-version=11 -Dmaven.compiler.compilerVersion=11 -Dmaven.compiler.release=11 -B -V
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.loginsonar }}

@@ -195,7 +195,8 @@ public class FrutasResource {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                logger.warn("Interrupted!", e);
+                Thread.currentThread().interrupt();
             }
         } else {
             simularEspera = true;

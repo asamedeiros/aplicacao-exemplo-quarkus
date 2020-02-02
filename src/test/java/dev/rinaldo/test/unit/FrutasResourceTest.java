@@ -237,6 +237,8 @@ public class FrutasResourceTest {
         // then
         assertNotNull(maisVotadas, "Não retornou nenhuma lista no fallback, mas deveria ter retornado algo.");
         assertFalse(maisVotadas.isEmpty(), "Retornou uma lista vazia no fallback.");
+        String expectedNomeFruta = "Ameixa";
+        assertEquals(expectedNomeFruta, maisVotadas.get(0).getNome(), "Nome da fruta não era o esperado.");
     }
     
     @Test

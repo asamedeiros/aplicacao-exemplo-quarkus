@@ -1,6 +1,5 @@
 package dev.rinaldo.dto;
 
-import dev.rinaldo.domain.Fruta;
 import lombok.Builder;
 import lombok.Value;
 
@@ -8,20 +7,12 @@ import lombok.Value;
  * Exemplo de DTO.
  * 
  * Especificações utilizadas:
- * - nenhuma.
+ * - Lombok com as anotações @Value e @Builder.
  * 
- * Exemplo de uma DTO simples para trafegar os dados da entidade {@link Fruta}.
- * 
- * Perceba que não há fields privados, getters e setters. Existe uma discussão sobre como DTOs devem ser utilizadas.
- * O conceito que estou utilizando aqui é:
- * - não há getter e setter, porque não é uma classe feita para conter regras ou lógicas, nem mesmo de transformação.
- * - pode haver equals e hashCode, nesse caso deve sempre testar todos os valores, pois se é uma classe para transferir valores,
- * se qualquer um estiver diferente, as instâncias representam coisas diferentes.
- * - pode haver toString, afinal é só uma representação visual dos valores da classe.
- * - em resumo, não pode haver comportamento, mas pode haver esses métodos herdados que não representam
- * comportamento/lógica/transformação.
- * 
- * O que está pendente aqui, e é muito importante, é a falta de imutabilidade. Existe um Issue aberta falando disso.
+ * Essa classe utiliza o conceito de Imutabilidade, utilizando as anotações {@link Value} e {@link Builder} para tornar os
+ * atributos private,
+ * final, gerar getters, toString, equals, hashCode, criar um construtor privado com todos os argumentos e permitir que o
+ * MapStruct crie essa classe a partir do Builder que será gerado.
  * 
  * @author rinaldodev
  *
@@ -29,9 +20,9 @@ import lombok.Value;
 @Value
 @Builder
 public class FrutaDTO {
-    
+
     Long id;
     String nome;
     Integer votos;
-    
+
 }

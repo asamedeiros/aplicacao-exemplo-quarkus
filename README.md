@@ -40,6 +40,7 @@ Extensões Quarkus (fora do MicroProfile):
 Bibliotecas externas:
 - Log com SLF4J
 - MapStruct
+- Lombok
 
 Testes Unitários:
 - JUnit5/Jupiter

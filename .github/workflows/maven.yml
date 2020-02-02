@@ -32,3 +32,20 @@ jobs:
       run: mvn clean package -DskipTests=true -Dmaven.javadoc.skip=true -Djava-version=${{ matrix.java }} -Dmaven.compiler.compilerVersion=${{ matrix.java }} -Dmaven.compiler.release=${{ matrix.java }} -B -V
     - name: Testes Integrados
       run: mvn failsafe:integration-test failsafe:verify -Djava-version=${{ matrix.java }} -Dmaven.compiler.compilerVersion=${{ matrix.java }} -Dmaven.compiler.release=${{ matrix.java }} -B -V
+  sonar:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Java
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+    - name: Cache Maven
+      uses: actions/cache@v1
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+    - name: Sonar
+      run: mvn clean package sonar:sonar -Djava-version=11 -Dmaven.compiler.compilerVersion=11 -Dmaven.compiler.release=11 -Dsonar.login=${{ secrets.loginsonar }} -B -V

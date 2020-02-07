@@ -34,7 +34,7 @@ import org.slf4j.Logger;
 import dev.rinaldo.config.FrutasConfig;
 import dev.rinaldo.config.LogProducer;
 import dev.rinaldo.dao.FrutasDAO;
-import dev.rinaldo.domain.Fruta;
+import dev.rinaldo.dominio.Fruta;
 import dev.rinaldo.dto.FrutaDTO;
 import dev.rinaldo.dto.mapper.FrutaMapper;
 import dev.rinaldo.rest.FrutasResource;

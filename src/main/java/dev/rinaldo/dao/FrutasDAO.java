@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 
-import dev.rinaldo.domain.Fruta;
+import dev.rinaldo.dominio.Fruta;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 

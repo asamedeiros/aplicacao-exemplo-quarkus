@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 
 import org.mapstruct.Mapper;
 
-import dev.rinaldo.domain.Fruta;
+import dev.rinaldo.dominio.Fruta;
 import dev.rinaldo.dto.FrutaDTO;
 
 /**

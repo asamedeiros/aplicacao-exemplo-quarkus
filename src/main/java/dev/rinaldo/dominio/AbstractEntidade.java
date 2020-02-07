@@ -1,11 +1,16 @@
-package dev.rinaldo.domain;
+package dev.rinaldo.dominio;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 import org.hibernate.annotations.NaturalId;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Classe base para todas as {@link Entity}.
@@ -27,19 +32,14 @@ import org.hibernate.annotations.NaturalId;
  *
  */
 @MappedSuperclass
-public abstract class AbstractEntity {
+@Getter
+@Setter
+@ToString
+public abstract class AbstractEntidade {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     @Override
     public abstract boolean equals(Object obj);

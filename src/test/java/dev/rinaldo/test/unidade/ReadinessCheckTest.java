@@ -16,7 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import dev.rinaldo.config.ReadinessCheck;
 import dev.rinaldo.dao.FrutasDAO;
-import dev.rinaldo.domain.Fruta;
+import dev.rinaldo.dominio.Fruta;
 
 /**
  * Testes unitários de {@link ReadinessCheck}.

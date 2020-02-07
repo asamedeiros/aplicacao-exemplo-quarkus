@@ -235,9 +235,22 @@
 							<rules>
 								<rule>
 									<element>PACKAGE</element>
-									<includes>
-										<include>dev.rinaldo.rest</include>
-									</includes>
+									<excludes>
+										<!-- DAO não entra no check pois não tem teste de unidade e os 
+											testes de Quarkus o JaCoCo não pega a cobertura. -->
+										<exclude>dev.rinaldo.dao</exclude>
+
+										<!-- Domínio não entra pois são somente entidades. Entraria se 
+											houvesse mais coisa. -->
+										<exclude>dev.rinaldo.domain</exclude>
+
+										<!-- DTO não entra pois é um POJO com anotações. -->
+										<exclude>dev.rinaldo.dto</exclude>
+
+										<!-- Mapper não entra pois é só interface para nós, a implementação 
+											é um framework. -->
+										<exclude>dev.rinaldo.dto.mapper</exclude>
+									</excludes>
 									<limits>
 										<limit>
 											<counter>LINE</counter>
@@ -249,11 +262,36 @@
 											<value>COVEREDRATIO</value>
 											<minimum>90%</minimum>
 										</limit>
+									</limits>
+								</rule>
+								<rule>
+									<element>PACKAGE</element>
+									<excludes>
+										<!-- DAO não entra no check pois não tem teste de unidade e os 
+											testes de Quarkus o JaCoCo não pega a cobertura. -->
+										<exclude>dev.rinaldo.dao</exclude>
+									</excludes>
+									<limits>
 										<limit>
 											<counter>CLASS</counter>
 											<value>MISSEDCOUNT</value>
 											<maximum>0</maximum>
 										</limit>
+									</limits>
+								</rule>
+								<rule>
+									<element>PACKAGE</element>
+									<excludes>
+										<!-- DAO não entra no check pois não tem teste de unidade e os 
+											testes de Quarkus o JaCoCo não pega a cobertura. -->
+										<exclude>dev.rinaldo.dao</exclude>
+
+										<!-- Domínio e DTO não entram pois tem muitos métodos get, set, 
+											equals, hashCode, etc. -->
+										<exclude>dev.rinaldo.domain</exclude>
+										<exclude>dev.rinaldo.dto</exclude>
+									</excludes>
+									<limits>
 										<limit>
 											<counter>METHOD</counter>
 											<value>MISSEDCOUNT</value>
@@ -270,21 +308,22 @@
 				<groupId>org.pitest</groupId>
 				<artifactId>pitest-maven</artifactId>
 				<version>1.4.11</version>
-				<configuration>
-					<mutationThreshold>90</mutationThreshold>
-					<coverageThreshold>90</coverageThreshold>
-					<testPlugin>junit5</testPlugin>
-					<targetClasses>
-						<param>dev.rinaldo.rest.*</param>
-					</targetClasses>
-					<targetTests>
-						<param>dev.rinaldo.test.unit.*</param>
-					</targetTests>
-					<skipTests>${skipTests}</skipTests>
-					<skip>${skipMutationTests}</skip>
-				</configuration>
 				<executions>
 					<execution>
+						<id>teste-mutacao-unidade</id>
+						<configuration>
+							<mutationThreshold>90</mutationThreshold>
+							<coverageThreshold>90</coverageThreshold>
+							<testPlugin>junit5</testPlugin>
+							<targetClasses>
+								<param>dev.rinaldo.rest.*</param>
+							</targetClasses>
+							<targetTests>
+								<param>dev.rinaldo.test.unidade.*</param>
+							</targetTests>
+							<skipTests>${skipTests}</skipTests>
+							<skip>${skipMutationTests}</skip>
+						</configuration>
 						<goals>
 							<goal>mutationCoverage</goal>
 						</goals>

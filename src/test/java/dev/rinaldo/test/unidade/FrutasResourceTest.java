@@ -1,4 +1,4 @@
-package dev.rinaldo.test.unit;
+package dev.rinaldo.test.unidade;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

@@ -27,8 +27,12 @@ import dev.rinaldo.dao.FrutasDAO;
 @ApplicationScoped
 public class ReadinessCheck implements HealthCheck {
 
+    private final FrutasDAO fruitsDAO;
+
     @Inject
-    FrutasDAO fruitsDAO;
+    public ReadinessCheck(FrutasDAO fruitsDAO) {
+        this.fruitsDAO = fruitsDAO;
+    }
 
     @Override
     public HealthCheckResponse call() {

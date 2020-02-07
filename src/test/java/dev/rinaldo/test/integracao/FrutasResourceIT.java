@@ -1,4 +1,4 @@
-package dev.rinaldo.test.integrated;
+package dev.rinaldo.test.integracao;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.contains;
@@ -19,7 +19,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import dev.rinaldo.rest.FrutasResource;
-import dev.rinaldo.test.unit.FrutasResourceTest;
+import dev.rinaldo.test.unidade.FrutasResourceTest;
 import io.quarkus.test.Mock;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;

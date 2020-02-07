@@ -26,8 +26,8 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 @ApplicationScoped
 public class FrutasConfig {
 
-    private boolean simularEspera;
-    private boolean simularExcecao;
+    private final boolean simularEspera;
+    private final boolean simularExcecao;
 
     @Inject
     public FrutasConfig(

@@ -1,6 +1,10 @@
 package dev.rinaldo.dominio;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.NaturalId;
 
@@ -16,7 +20,8 @@ import lombok.ToString;
  * 
  * Veja a classe {@link AbstractEntidade} para mais informações sobre padrões de implementação.
  * 
- * Para este exemplo, consideramos que nome é um ID natural, e que não pode ser alterado.
+ * Para este exemplo, consideramos que nome é um ID natural, e que não pode ser alterado. Provavelmente na sua aplicação de
+ * negócio haverá uma chave negocial mais relevante do que isso. :)
  * 
  * @author rinaldodev
  *
@@ -28,24 +33,13 @@ import lombok.ToString;
 public class Fruta extends AbstractEntidade {
 
     @NaturalId
+    @NotBlank
     private String nome;
 
     private Integer votos;
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String name) {
-        this.nome = name;
-    }
-
-    public Integer getVotos() {
-        return votos;
-    }
-
-    public void setVotos(Integer votos) {
-        this.votos = votos;
-    }
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @NotNull
+    private Categoria categoria;
 
 }

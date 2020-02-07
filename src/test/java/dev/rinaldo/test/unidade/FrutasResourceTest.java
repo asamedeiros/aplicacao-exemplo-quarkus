@@ -17,7 +17,6 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -34,7 +33,9 @@ import org.slf4j.Logger;
 import dev.rinaldo.config.FrutasConfig;
 import dev.rinaldo.config.LogProducer;
 import dev.rinaldo.dao.FrutasDAO;
+import dev.rinaldo.dominio.Categoria;
 import dev.rinaldo.dominio.Fruta;
+import dev.rinaldo.dto.CategoriaDTO;
 import dev.rinaldo.dto.FrutaDTO;
 import dev.rinaldo.dto.mapper.FrutaMapper;
 import dev.rinaldo.rest.FrutasResource;
@@ -106,8 +107,43 @@ public class FrutasResourceTest {
         // then
         final List<FrutaDTO> expected = frutaMapper.toResourceList(frutasList);
         verify(frutasDAO, times(1)).listAll();
-        assertEquals(expected.size(), actual.size(), "O tamanho da lista retornada é diferente do que foi colocado no mock.");
-        assertEquals(Set.copyOf(expected), Set.copyOf(actual), "As listas contém itens diferentes, mas deveriam ser iguais."); // compara um SET para que a ordem seja ignorada
+        assertEquals(expected, actual, "A lista retornada é diferente da lista do mock.");
+    }
+
+    @Test
+    public void listarTodasAsFrutas_FrutaComCategoria() {
+        // given
+        Categoria categoria1 = new Categoria();
+        categoria1.setId(1L);
+        categoria1.setNome("Ácida");
+
+        Fruta fruta1 = new Fruta();
+        fruta1.setId(1L);
+        fruta1.setCategoria(categoria1);
+        fruta1.setNome("Abacaxi");
+
+        final List<Fruta> frutasList = Arrays.asList(fruta1);
+        when(frutasDAO.listAll()).thenReturn(frutasList);
+
+        final FrutasResource frutasResource = newFrutasResource();
+
+        // when
+        final List<FrutaDTO> actual = frutasResource.get();
+
+        // then
+        final List<FrutaDTO> expected = frutaMapper.toResourceList(frutasList);
+        verify(frutasDAO, times(1)).listAll();
+        assertEquals(expected, actual, "A lista retornada é diferente da lista do mock.");
+
+        FrutaDTO actualFruta = actual.get(0);
+        FrutaDTO expectedFruta = expected.get(0);
+        assertNotNull(actualFruta);
+        assertEquals(expectedFruta, actualFruta, "As frutas são diferentes.");
+
+        CategoriaDTO actualCategoria = actualFruta.getCategoria();
+        CategoriaDTO expectedCategoria = expectedFruta.getCategoria();
+        assertNotNull(actualCategoria);
+        assertEquals(expectedCategoria, actualCategoria, "As categorias são diferentes.");
     }
 
     @Test
@@ -179,8 +215,7 @@ public class FrutasResourceTest {
         // then
         List<FrutaDTO> expected = frutaMapper.toResourceList(frutas);
         verify(frutasDAO, times(1)).findMaisVotadas();
-        assertEquals(expected.size(), actual.size(), "O tamanho da lista retornada é diferente do que foi colocado no mock.");
-        assertEquals(Set.copyOf(expected), Set.copyOf(actual), "As listas contém itens diferentes, mas deveriam ser iguais."); // compara um SET para que a ordem seja ignorada
+        assertEquals(expected, actual, "A lista retornada é diferente da lista do mock.");
     }
 
     @Test

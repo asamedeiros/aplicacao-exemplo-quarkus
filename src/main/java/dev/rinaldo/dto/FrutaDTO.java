@@ -24,5 +24,6 @@ public class FrutaDTO {
     Long id;
     String nome;
     Integer votos;
+    CategoriaDTO categoria;
 
 }

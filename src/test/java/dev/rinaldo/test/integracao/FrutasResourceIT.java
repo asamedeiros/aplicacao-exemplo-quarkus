@@ -89,7 +89,8 @@ public class FrutasResourceIT {
                 .contentType(ContentType.JSON)
                 .body("id", hasItems(1, 2, 3, 4, 5, 6, 7))
                 .body("nome", hasSize(greaterThanOrEqualTo(7)))
-                .body("votos", hasSize(greaterThanOrEqualTo(7)));
+                .body("votos", hasSize(greaterThanOrEqualTo(7)))
+                .body("categoria", hasSize(greaterThanOrEqualTo(7)));
     }
 
     @Test
@@ -103,7 +104,8 @@ public class FrutasResourceIT {
                 .contentType(ContentType.JSON)
                 .body("id", contains(3, 6, 4))
                 .body("nome", hasSize(3))
-                .body("votos", hasSize(3));
+                .body("votos", hasSize(3))
+                .body("categoria", hasSize(3));
     }
 
     @Test
